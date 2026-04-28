@@ -1,8 +1,9 @@
 import menu
 import questionary
+from classes.usuario import Usuario
 from questionary import Choice
 
-usuario_logado = {'user': '', 'senha': '', 'id_usuario': 0}
+usuario_logado = Usuario()
 
 usuarios = []
 
@@ -22,10 +23,10 @@ def menu_cadastro():
     usuario_info = questionary.text("Informe seu usuário: ").ask()
     senha_info = questionary.password("Informe sua senha: ").ask()
 
-    usuario_novo = {'nome':usuario_info, 'senha': senha_info, 'id_usuario': len(usuarios) + 1}
+    usuario_novo = Usuario(username=usuario_info, senha=senha_info)
     return usuario_novo
 
-user = {'nome':'diego','senha':'123', 'id_usuario':1}
+user = Usuario(username="Diego", senha="123")
 usuarios.append(user)
 
 opcao = 0
@@ -34,21 +35,19 @@ while (opcao != 3):
     validado = True
     if opcao == 1: #Login
         usuario_info = questionary.text("Informe seu usuário: ").ask()
-        resultado = next((usuario for usuario in usuarios if usuario_info in usuario["nome"]), None)
+        resultado = next((usuario for usuario in usuarios if usuario_info == usuario.nome), None)
         if not resultado:
             print("Usuário informado não localizado no sistema!")
             validado = False
         if validado:
             senha_info = questionary.password("Informe sua senha: ").ask()
-            if senha_info != resultado['senha']:
+            if senha_info != resultado.senha:
                 print("Senha incorreta")
                 validado = False
         if not validado:
             print('Não foi possivel fazer login!')
         else:
-            usuario_logado['user'] = resultado['nome']
-            usuario_logado['senha'] = resultado['senha']
-            usuario_logado['id_usuario'] = resultado['id_usuario']
+            usuario_logado = resultado
             menu.menu_logado(usuario_logado)
     elif opcao == 2: #Criar usuário
         print('Vamos realizar seu cadastro! Favor informe os seguintes dados:')
