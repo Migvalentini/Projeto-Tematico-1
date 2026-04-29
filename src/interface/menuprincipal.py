@@ -1,11 +1,10 @@
-import menu
+from src.interface import menu
 import questionary
-from classes.usuario import Usuario
+from src.classes.usuario import Usuario
 from questionary import Choice
+from src.armazenamento.gerenciador import *
 
-usuario_logado = Usuario()
-
-usuarios = []
+# python -m src.interface.menuprincipal
 
 def chama_menu_principal():
     choice = questionary.select(
@@ -23,10 +22,10 @@ def menu_cadastro():
     usuario_info = questionary.text("Informe seu usuário: ").ask()
     senha_info = questionary.password("Informe sua senha: ").ask()
 
-    usuario_novo = Usuario(username=usuario_info, senha=senha_info)
+    usuario_novo = Usuario(nome=usuario_info, senha=senha_info)
     return usuario_novo
 
-user = Usuario(username="Diego", senha="123")
+user = Usuario(nome="Diego", senha="123")
 usuarios.append(user)
 
 opcao = 0

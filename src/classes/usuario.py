@@ -1,12 +1,14 @@
 from dataclasses import dataclass, field
-import uuid
 
 @dataclass
 class Usuario:
-    # Gerando um ID único automaticamente
-    id_usuario: str = field(default_factory=lambda: str(uuid.uuid4()))
-    username: str = ""
+    id_usuario: int = field(init=False)
+    nome: str = ""
     senha: str = ""
+
+    def __post_init__(self):
+        Usuario._next_id = getattr(Usuario, '_next_id', 0) + 1
+        self.id_usuario = Usuario._next_id
 
     def toString(self):
         return f"Usuário: {self.username}"
