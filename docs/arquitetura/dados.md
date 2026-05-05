@@ -17,7 +17,7 @@ O sistema utiliza quatro entidades principais vinculadas pelo `id_usuario`:
 | **Rendas** | id_rendas, valor, descricao, data | n para 1 (usuário) |
 
 ## Fluxo de Leitura e Escrita
-1. **Inicialização:** O `main.py` solicita ao `gerenciador.py` que carregue em memória os dados presentes nos arquivos da pasta `src/armazenamento`.
+1. **Inicialização:** O `menuprincipal.py` solicita ao `gerenciador.py` que carregue em memória os dados presentes nos arquivos da pasta `src/armazenamento`.
 2. **Persistência:** Ao realizar qualquer alteração, o método `gravadados` sobrescreve os arquivos JSON correspondentes com os estados atualizados das listas.
 
 ## Localização dos Arquivos
