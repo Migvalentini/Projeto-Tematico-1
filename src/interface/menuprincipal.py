@@ -1,8 +1,8 @@
 from src.interface import menu
+from src.armazenamento import gerenciador
+from src.classes.usuarios import Usuario
 import questionary
-from src.classes.usuario import Usuario
 from questionary import Choice
-from src.armazenamento.gerenciador import *
 
 # python -m src.interface.menuprincipal
 
@@ -12,8 +12,8 @@ def chama_menu_principal():
     choices=[
         Choice("Fazer Login", value=1),
         Choice("Criar usuário", value=2),
-        Choice("Sair", value=3),
-        Choice("Print", value=4),
+        Choice("Print", value=3),
+        Choice("Sair", value=4),
     ]).ask()
 
     return choice
@@ -25,16 +25,15 @@ def menu_cadastro():
     usuario_novo = Usuario(nome=usuario_info, senha=senha_info)
     return usuario_novo
 
-user = Usuario(nome="Diego", senha="123")
-usuarios.append(user)
+gerenciador.carregardados()
 
 opcao = 0
-while (opcao != 3):
+while (opcao != 4):
     opcao = chama_menu_principal()
     validado = True
     if opcao == 1: #Login
         usuario_info = questionary.text("Informe seu usuário: ").ask()
-        resultado = next((usuario for usuario in usuarios if usuario_info == usuario.nome), None)
+        resultado = next((usuario for usuario in gerenciador.usuarios if usuario_info == usuario.nome), None)
         if not resultado:
             print("Usuário informado não localizado no sistema!")
             validado = False
@@ -51,7 +50,7 @@ while (opcao != 3):
     elif opcao == 2: #Criar usuário
         print('Vamos realizar seu cadastro! Favor informe os seguintes dados:')
         cadastro = menu_cadastro()
-        usuarios.append(cadastro)
-    elif opcao == 4: #Print
-        print(usuarios)
+        gerenciador.usuarios.append(cadastro)
+    elif opcao == 3: #Print
+        print(gerenciador.usuarios)
 print("Encerrando...")

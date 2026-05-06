@@ -1,0 +1,10 @@
+[
+    {
+        "id_despesa": 1,
+        "id_categoria": 7,
+        "id_usuario": 1,
+        "descricao": "netflix",
+        "valor": "50",
+        "data_inclusao": "2026-05-05T21:15:44.460064"
+    }
+]

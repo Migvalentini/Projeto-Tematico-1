@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 
 @dataclass
 class Categoria:
-    id_categoria: int = field(init=False)
+    id_categoria: int = None
     nome: str = ""
     descricao: str = ""
     
