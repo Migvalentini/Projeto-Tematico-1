@@ -4,7 +4,7 @@ import uuid
 
 @dataclass
 class Despesas:
-    id_despesa: int = field(init=False)
+    id_despesa: int = None
     id_categoria: int = None
     id_usuario: str = ""
     descricao: str = ""

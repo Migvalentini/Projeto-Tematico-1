@@ -38,3 +38,38 @@ projeto/
 │ ├── testes/ = pasta responsável por documentar os testes no sistema, garantindo que todos os requisitos sejam atingidos
 │ ├── rastreabilidade / = pasta responsável por ...
 │ └── decisoes/ = pasta responsável por ...
+
+
+
+## Semanas:
+
+### Semana 1 (07/04):
+- Miguel foi responsável pela criação inicial do repositório, compartilhando com os membros do grupo e professora. 
+  Além disso, incluiu as informações iniciais no arquivo README.md e criou a organização inicial das pastas do projeto.
+  Todo esse processo foi feito durante o período da aula, compartilhando a tela com os demais membros do grupo.
+- Diego e Nicolas ajudaram o Miguel com ideias, ajustes e apontamentos, de forma que todos os integrantes estejam conectados e participativos no desenvolvimento do projeto.
+
+### Semana 2 (14/04):
+- Diego foi responsável pela inicialização do menu principal, assim como o desenvolvimento inicial do sistema de login e cadastros de usuários
+- Miguel foi responsável pela documentação do que foi realizado na semana 2
+- Nicolas foi responsável por pesquisar e sugerir a biblioteca Questionary que foi instalada e utilizada no projeto para o desenvolvimento dos menus
+
+### Semana 3 (21/04) - Feriado Tiradentes:
+- Mesmo no feriado, Miguel prosseguiu com o desenvolvimento do projeto, implementando novos recursos no menu principal do sistema, como:
+-- Criação do id_usuario para o usuário logado
+-- Criação do menu logado, para que os usuários possam fazer login no sistema e conseguirem operarem nos seus dados específicos. Nesse momento, foram criados apenas a estrutura inicial
+-- Criação das categorias das despesas
+
+### Semana 4 (28/04):
+- Nicolas desenvolveu a criação das classes do sistema, como categorias, despesas, rendas e usuarios, adaptando as variáveis criadas inicialmente dentro do menu para as novas classes criadas 
+- Criação do .gitignore
+- Ajustes de inicialização em variáveis de dataclass, criação de arquivos json separados para cada classe, uso de arquivo para armazenamento geral de dados
+
+### Semana 5 (05/05): 
+- Documentação dos dados.md, detalhando a entidade de armazenamento, modelagem de dados, entidades, atributos, fluxo de leitura e escrita e localização de arquivos
+- Gravação e Leitura em arquivos json, correção id_despesa, melhorias menus e renomeação de arquivos
+
+### Semana 6 (12/05):
+- Cadastro de categorias
+- Edição e exclusão de rendas, despesas e categorias
+- Documentação do que foi realizado durante as semanas passadas
