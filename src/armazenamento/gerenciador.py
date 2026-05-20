@@ -44,49 +44,77 @@ def gravardados():
 def carregardados():    
     if not os.path.exists(diretorio):
         return
+    
+    def carregaArquivo(nome_arquivo):
+        caminho = os.path.join(diretorio, nome_arquivo)
+        if os.path.exists(caminho):
+            if os.path.getsize(caminho) == 0:
+                return []
+            try:
+                with open(caminho, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except json.JSONDecodeError:
+                print(f"O arquivo {nome_arquivo} estava corrompido e foi ignorado.")
+                return []
+        return []
 
-    caminho_u = os.path.join(diretorio, 'usuarios.json')
-    if os.path.exists(caminho_u):
-        with open(caminho_u, 'r', encoding='utf-8') as f:
-            dados = json.load(f)
-            usuarios.clear()
-            for item in dados:
-                print(item)
-                usuarios.append(Usuario(**item))
+    dados_usuario = carregaArquivo('usuarios.json')
+    usuarios.clear()
+    for item in dados_usuario:
+        usuarios.append(Usuario(**item))
 
-    caminho_r = os.path.join(diretorio, 'rendas.json')
-    if os.path.exists(caminho_r):
-        with open(caminho_r, 'r', encoding='utf-8') as f:
-            dados = json.load(f)
-            rendas.clear()
-            for item in dados:
-                if 'data_inclusao' in item:
-                    item['data_inclusao'] = datetime.fromisoformat(item['data_inclusao'])
-                rendas.append(Rendas(**item))
+    dados_renda = carregaArquivo('rendas.json')
+    rendas.clear()
+    for item in dados_renda:
+        if 'data_inclusao' in item:
+            item['data_inclusao'] = datetime.fromisoformat(item['data_inclusao'])
+        rendas.append(Rendas(**item))
 
-    caminho_d = os.path.join(diretorio, 'despesas.json')
-    if os.path.exists(caminho_d):
-        with open(caminho_d, 'r', encoding='utf-8') as f:
-            dados = json.load(f)
-            despesas.clear()
-            for item in dados:
-                if 'data_inclusao' in item:
-                    item['data_inclusao'] = datetime.fromisoformat(item['data_inclusao'])
-                despesas.append(Despesas(**item))
+    dados_despesa = carregaArquivo('despesas.json')
+    despesas.clear()
+    for item in dados_despesa:
+        if 'data_inclusao' in item:
+            item['data_inclusao'] = datetime.fromisoformat(item['data_inclusao'])
+        despesas.append(Despesas(**item))
                 
-    caminho_c = os.path.join(diretorio, 'categorias.json')
-    if os.path.exists(caminho_c):
-        with open(caminho_c, 'r', encoding='utf-8') as f:
-            dados = json.load(f)
-            categorias.clear()
-            for item in dados:
-                categorias.append(Categoria(**item))
+    dados_categoria = carregaArquivo('categorias.json')
+    categorias.clear()
+    for item in dados_categoria:
+        categorias.append(Categoria(**item))
 
-categorias.extend([
-    Categoria(nome="Despesas Fixas",           descricao="Ocorrem regularmente com valores estáveis, como aluguel, financiamentos, seguros e mensalidades."),
-    Categoria(nome="Despesas Variáveis",       descricao="Variam mês a mês, como contas de luz, água, gás, alimentação, transporte e entretenimento."),
-    Categoria(nome="Despesas Ocasionais",      descricao="Não ocorrem mensalmente, mas impactam o orçamento, como viagens, presentes e compra de eletrodomésticos."),
-    Categoria(nome="Despesas Emergenciais",    descricao="Imprevistas e urgentes, como problemas de saúde, acidentes e reparos emergenciais."),
-    Categoria(nome="Despesas de Lazer",        descricao="Relacionadas ao bem-estar e entretenimento, como cinema, restaurantes, academias e hobbies."),
-    Categoria(nome="Despesas de Investimento", descricao="Aplicações financeiras, compra de imóveis e investimentos em educação e desenvolvimento pessoal."),
-])
+def getUsuarioLogado() -> Usuario | None:
+    return usuario_logado
+
+def getRendas() -> list[Rendas]:
+    if not getUsuarioLogado():
+        print("Nenhum usuário logado.")
+        return []
+    
+    return [renda for renda in rendas if renda.id_usuario == getUsuarioLogado().id_usuario]
+
+def getDespesas() -> list[Despesas]:
+    if not getUsuarioLogado():
+        print("Nenhum usuário logado.")
+        return []
+    
+    return [despesa for despesa in despesas if despesa.id_usuario == getUsuarioLogado().id_usuario]
+
+def getUsuarios() -> list[Usuario]:
+    return usuarios
+
+def getCategorias() -> list[Categoria]:
+    if not getUsuarioLogado():
+        print("Nenhum usuário logado.")
+        return []
+    
+    if not categorias:
+                categorias.extend([
+                    Categoria(nome="Despesas Fixas",           descricao="Ocorrem regularmente com valores estáveis, como aluguel, financiamentos, seguros e mensalidades.", id_usuario=getUsuarioLogado().id_usuario),
+                    Categoria(nome="Despesas Variáveis",       descricao="Variam mês a mês, como contas de luz, água, gás, alimentação, transporte e entretenimento.", id_usuario=getUsuarioLogado().id_usuario),
+                    Categoria(nome="Despesas Ocasionais",      descricao="Não ocorrem mensalmente, mas impactam o orçamento, como viagens, presentes e compra de eletrodomésticos.", id_usuario=getUsuarioLogado().id_usuario),
+                    Categoria(nome="Despesas Emergenciais",    descricao="Imprevistas e urgentes, como problemas de saúde, acidentes e reparos emergenciais.", id_usuario=getUsuarioLogado().id_usuario),
+                    Categoria(nome="Despesas de Lazer",        descricao="Relacionadas ao bem-estar e entretenimento, como cinema, restaurantes, academias e hobbies.", id_usuario=getUsuarioLogado().id_usuario),
+                    Categoria(nome="Despesas de Investimento", descricao="Aplicações financeiras, compra de imóveis e investimentos em educação e desenvolvimento pessoal.", id_usuario=getUsuarioLogado().id_usuario),
+                ])
+
+    return [categoria for categoria in categorias if categoria.id_usuario == getUsuarioLogado().id_usuario]

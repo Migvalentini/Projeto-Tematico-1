@@ -5,6 +5,7 @@ class Categoria:
     id_categoria: int = None
     nome: str = ""
     descricao: str = ""
+    id_usuario: int = None
     
     def __post_init__(self):
         Categoria._next_id = getattr(Categoria, '_next_id', 0) + 1

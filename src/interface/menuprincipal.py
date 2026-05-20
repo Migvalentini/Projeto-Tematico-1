@@ -4,7 +4,7 @@ from src.classes.usuarios import Usuario
 import questionary
 from questionary import Choice
 
-# python -m src.interface.menuprincipal
+# python -m src.interface.menuPrincipal
 
 def chama_menu_principal():
     choice = questionary.select(
@@ -12,7 +12,6 @@ def chama_menu_principal():
     choices=[
         Choice("Fazer Login", value=1),
         Choice("Criar usuário", value=2),
-        Choice("Print", value=3),
         Choice("Sair", value=4),
     ]).ask()
 
@@ -45,12 +44,12 @@ while (opcao != 4):
         if not validado:
             print('Não foi possivel fazer login!')
         else:
-            usuario_logado = resultado
-            menu.menu_logado(usuario_logado)
+            gerenciador.usuario_logado = resultado
+            menu.menu_logado()
     elif opcao == 2: #Criar usuário
         print('Vamos realizar seu cadastro! Favor informe os seguintes dados:')
         cadastro = menu_cadastro()
         gerenciador.usuarios.append(cadastro)
-    elif opcao == 3: #Print
-        print(gerenciador.usuarios)
+        gerenciador.gravardados()
+        print('Usuário criado com sucesso!')
 print("Encerrando...")
