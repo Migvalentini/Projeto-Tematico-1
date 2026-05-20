@@ -74,7 +74,7 @@ projeto/
 - Edição e exclusão de rendas, despesas e categorias
 - Documentação do que foi realizado durante as semanas passadas
 
-### Semana 7 ():
+### Semana 7 (19/05):
 - Ajustes nas categorias, de modo que elas sejam restritas por usuário
 - Ajustes no gerenciador, de modo que retorne as listas filtradas por id_usuario
 - No menu, ajustes para inicializar corretamente o usuário logado dentro do gerenciador
