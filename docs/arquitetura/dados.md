@@ -11,10 +11,10 @@ O sistema utiliza quatro entidades principais vinculadas pelo `id_usuario`:
 ### Entidades e Atributos
 | Entidade | Atributos Principais | Relacionamento |
 | :--- | :--- | :--- |
-| **Usuario** | id_usuario, nome, senha | dono dos registros |
-| **Categoria** | id_categoria, nome, descricao | classifica Despesas |
-| **Despesas** | id_despesa, id_categoria, valor, data | n para 1 (categoria) |
-| **Rendas** | id_rendas, valor, descricao, data | n para 1 (usuário) |
+| **Usuário** | id_usuario, nome, senha | dono dos registros |
+| **Categoria** | id_categoria, nome, descricao, id_usuario | classifica Despesas |
+| **Despesas** | id_despesa, id_categoria, descricao, valor, data_inclusao, id_usuario | n para 1 (categoria) |
+| **Rendas** | id_renda, valor, descricao, data_inclusao, id_usuario | n para 1 (usuário) |
 
 ## Fluxo de Leitura e Escrita
 1. **Inicialização:** O `menuprincipal.py` solicita ao `gerenciador.py` que carregue em memória os dados presentes nos arquivos da pasta `src/armazenamento`.

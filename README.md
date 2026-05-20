@@ -73,3 +73,12 @@ projeto/
 - Cadastro de categorias
 - Edição e exclusão de rendas, despesas e categorias
 - Documentação do que foi realizado durante as semanas passadas
+
+### Semana 7 ():
+- Ajustes nas categorias, de modo que elas sejam restritas por usuário
+- Ajustes no gerenciador, de modo que retorne as listas filtradas por id_usuario
+- No menu, ajustes para inicializar corretamente o usuário logado dentro do gerenciador
+- Separação de menus em arquivos distintos
+- Inicio dos cálculos
+- Cadastro e edição de categoria
+- Documentação da visão geral, funcionalidades, fluxo, integração, decisões técnicas e interface
