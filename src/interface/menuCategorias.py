@@ -5,7 +5,7 @@ from src.armazenamento import gerenciador
 
 def chama_menu():
     choice = questionary.select(
-    "Bem vindo! O que deseja fazer?",
+    "Bem vindo ao Menu Categorias! O que deseja fazer?",
     choices=[
         Choice("Listar categorias", value=1),
         Choice("Cadastrar categoria", value=2),
@@ -45,6 +45,10 @@ def menu_logado():
             categoria_editavel.descricao = categoriadesc
             gerenciador.gravardados()
         elif opcao == 4: # Excluir categorias
+            categorias_excluir = gerenciador.getCategorias()
+            if not categorias_excluir:
+                print("Nenhuma categoria disponível para exclusão.")
+                continue
             categoria_apagavel = questionary.select(
                 "Selecione a categoria para exclusão:",
                 choices=[Choice(categoria.nome + " - " + categoria.descricao, value=categoria.id_categoria) for categoria in gerenciador.getCategorias()]

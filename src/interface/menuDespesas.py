@@ -14,7 +14,7 @@ def validar_valor(texto):
 
 def chama_menu():
     choice = questionary.select(
-    "Bem vindo! O que deseja fazer?",
+    "Bem vindo ao Menu Despesas! O que deseja fazer?",
     choices=[
         Choice("Listar despesas", value=1),
         Choice("Cadastrar despesa", value=2),
@@ -38,6 +38,7 @@ def menu_logado():
         elif opcao == 2: # Cadastrar Despesa
             despesavalor = questionary.text("Digite o valor da despesa:", validate=validar_valor).ask()
             despesadescricao = questionary.text("Digite a descrição da despesa:").ask()
+            
             categoria = questionary.select(
                 "Selecione a categoria da despesa:",
                 choices=[Choice(categoria.nome + " - " + categoria.descricao, value=categoria.id_categoria) for categoria in gerenciador.getCategorias()]

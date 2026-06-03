@@ -2,8 +2,22 @@
     {
         "id_renda": 1,
         "id_usuario": 1,
-        "descricao": "asd",
-        "valor": "12",
-        "data_inclusao": "2026-05-05T21:02:57.139158"
+        "descricao": "sla",
+        "valor": "130",
+        "data_inclusao": "2026-06-02T21:34:15.261044"
+    },
+    {
+        "id_renda": 2,
+        "id_usuario": 1,
+        "descricao": "Renda Miguel",
+        "valor": "30",
+        "data_inclusao": "2026-06-02T21:37:26.982527"
+    },
+    {
+        "id_renda": 3,
+        "id_usuario": 2,
+        "descricao": "Renda Diego",
+        "valor": "50",
+        "data_inclusao": "2026-06-02T21:38:31.794550"
     }
 ]

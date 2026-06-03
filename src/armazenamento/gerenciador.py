@@ -41,12 +41,20 @@ def gravardados():
         with open(caminho_completo, 'w', encoding='utf-8') as f:
             json.dump(lista, f, indent=4, ensure_ascii=False, cls=EnhancedJSONEncoder)
             
-def carregardados():    
+def carregardados():
     if not os.path.exists(diretorio):
         return
     
     def carregaArquivo(nome_arquivo):
         caminho = os.path.join(diretorio, nome_arquivo)
+        if not os.path.exists(caminho):
+            print(f"Arquivo {nome_arquivo} não encontrado. Criando...")
+            
+            with open(caminho, 'w', encoding='utf-8') as f:
+                json.dump([], f)
+
+            return []
+            
         if os.path.exists(caminho):
             if os.path.getsize(caminho) == 0:
                 return []
@@ -107,14 +115,14 @@ def getCategorias() -> list[Categoria]:
         print("Nenhum usuário logado.")
         return []
     
-    if not categorias:
-                categorias.extend([
-                    Categoria(nome="Despesas Fixas",           descricao="Ocorrem regularmente com valores estáveis, como aluguel, financiamentos, seguros e mensalidades.", id_usuario=getUsuarioLogado().id_usuario),
-                    Categoria(nome="Despesas Variáveis",       descricao="Variam mês a mês, como contas de luz, água, gás, alimentação, transporte e entretenimento.", id_usuario=getUsuarioLogado().id_usuario),
-                    Categoria(nome="Despesas Ocasionais",      descricao="Não ocorrem mensalmente, mas impactam o orçamento, como viagens, presentes e compra de eletrodomésticos.", id_usuario=getUsuarioLogado().id_usuario),
-                    Categoria(nome="Despesas Emergenciais",    descricao="Imprevistas e urgentes, como problemas de saúde, acidentes e reparos emergenciais.", id_usuario=getUsuarioLogado().id_usuario),
-                    Categoria(nome="Despesas de Lazer",        descricao="Relacionadas ao bem-estar e entretenimento, como cinema, restaurantes, academias e hobbies.", id_usuario=getUsuarioLogado().id_usuario),
-                    Categoria(nome="Despesas de Investimento", descricao="Aplicações financeiras, compra de imóveis e investimentos em educação e desenvolvimento pessoal.", id_usuario=getUsuarioLogado().id_usuario),
-                ])
-
     return [categoria for categoria in categorias if categoria.id_usuario == getUsuarioLogado().id_usuario]
+
+def criarCategorias(cadastro) -> list[Categoria]:
+    categorias.extend([
+        Categoria(nome="Despesas Fixas",           descricao="Ocorrem regularmente com valores estáveis, como aluguel, financiamentos, seguros e mensalidades.",         id_usuario=cadastro.id_usuario),
+        Categoria(nome="Despesas Variáveis",       descricao="Variam mês a mês, como contas de luz, água, gás, alimentação, transporte e entretenimento.",               id_usuario=cadastro.id_usuario),
+        Categoria(nome="Despesas Ocasionais",      descricao="Não ocorrem mensalmente, mas impactam o orçamento, como viagens, presentes e compra de eletrodomésticos.", id_usuario=cadastro.id_usuario),
+        Categoria(nome="Despesas Emergenciais",    descricao="Imprevistas e urgentes, como problemas de saúde, acidentes e reparos emergenciais.",                       id_usuario=cadastro.id_usuario),
+        Categoria(nome="Despesas de Lazer",        descricao="Relacionadas ao bem-estar e entretenimento, como cinema, restaurantes, academias e hobbies.",              id_usuario=cadastro.id_usuario),
+        Categoria(nome="Despesas de Investimento", descricao="Aplicações financeiras, compra de imóveis e investimentos em educação e desenvolvimento pessoal.",         id_usuario=cadastro.id_usuario),
+    ])

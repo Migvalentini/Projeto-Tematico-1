@@ -82,3 +82,9 @@ projeto/
 - Inicio dos cálculos
 - Cadastro e edição de categoria
 - Documentação da visão geral, funcionalidades, fluxo, integração, decisões técnicas e interface
+
+### Semana 8 (26/05):
+- Feriado
+
+### Semana 9 (02/06):
+- ?

@@ -17,7 +17,7 @@ def validar_valor(texto):
 
 def chama_menu():
     choice = questionary.select(
-    "Bem vindo! O que deseja fazer?",
+    "Bem vindo ao Menu Logado! O que deseja fazer?",
     choices=[
         Choice("Menu Rendas", value=1),
         Choice("Menu Despesas", value=2),
