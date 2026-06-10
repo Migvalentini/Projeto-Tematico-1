@@ -19,5 +19,12 @@
         "descricao": "Renda Diego",
         "valor": "50",
         "data_inclusao": "2026-06-02T21:38:31.794550"
+    },
+    {
+        "id_renda": 4,
+        "id_usuario": 2,
+        "descricao": "Passear com o cachorro",
+        "valor": "100",
+        "data_inclusao": "2026-06-09T20:04:24.022436"
     }
 ]

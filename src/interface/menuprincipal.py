@@ -4,7 +4,7 @@ from src.classes.usuarios import Usuario
 import questionary
 from questionary import Choice
 
-# python -m src.interface.menuPrincipal
+# python -m src.interface.menuprincipal
     
 def chama_menu_principal():
     choice = questionary.select(

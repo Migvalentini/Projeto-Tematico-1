@@ -1,5 +1,6 @@
 import questionary
 from questionary import Choice
+from src.interface.menuCategorias import cria_categoria
 from src.classes.despesas import Despesas
 from src.armazenamento import gerenciador
 
@@ -39,9 +40,24 @@ def menu_logado():
             despesavalor = questionary.text("Digite o valor da despesa:", validate=validar_valor).ask()
             despesadescricao = questionary.text("Digite a descrição da despesa:").ask()
             
+            lista_despesas = gerenciador.getCategorias()
+
+            if len(lista_despesas) == 0:
+                print('')
+                cadastrar = questionary.select(
+                    'Não há categorias cadastradas, deseja cadastrar?',
+                    choices=[Choice('Sim'), Choice('Não')]
+                ).ask()
+
+                if cadastrar == 'Sim':
+                    cria_categoria(usuarioLogado)
+                    lista_despesas = gerenciador.getCategorias()
+                elif cadastrar == 'Não':
+                    print('Cancelando criação da despesa...')
+                    break
             categoria = questionary.select(
                 "Selecione a categoria da despesa:",
-                choices=[Choice(categoria.nome + " - " + categoria.descricao, value=categoria.id_categoria) for categoria in gerenciador.getCategorias()]
+                choices=[Choice(categoria.nome + " - " + categoria.descricao, value=categoria.id_categoria) for categoria in lista_despesas]
             ).ask()
             print('Despesa Cadastrada com Sucesso! Valor: ' + despesavalor + ' - Descrição: ' + despesadescricao + ' - Categoria: ' + str(categoria))
             gerenciador.despesas.append(Despesas(id_usuario=usuarioLogado.id_usuario, descricao=despesadescricao, valor=despesavalor, id_categoria=categoria))

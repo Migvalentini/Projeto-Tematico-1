@@ -27,10 +27,7 @@ def menu_logado():
             for categoria in gerenciador.getCategorias():
                 print(f" - {categoria.nome}: {categoria.descricao}")
         elif opcao == 2: # Cadastrar categorias
-            categorianome = questionary.text("Digite o nome da nova categoria").ask()
-            categoriadesc = questionary.text("Digite a descrição da nova categoria").ask()
-            gerenciador.categorias.append(Categoria(nome=categorianome, descricao=categoriadesc, id_usuario=usuarioLogado.id_usuario))
-            gerenciador.gravardados()
+            cria_categoria(usuarioLogado)
         elif opcao == 3: # Editar categorias
             categoria_editavel = questionary.select(
                 "Selecione a categoria para edição:",
@@ -71,3 +68,9 @@ def menu_logado():
                         break
 
     print("Voltando ao menu...")
+
+def cria_categoria(usuarioLogado):
+    categorianome = questionary.text("Digite o nome da nova categoria").ask()
+    categoriadesc = questionary.text("Digite a descrição da nova categoria").ask()
+    gerenciador.categorias.append(Categoria(nome=categorianome, descricao=categoriadesc, id_usuario=usuarioLogado.id_usuario))
+    gerenciador.gravardados()

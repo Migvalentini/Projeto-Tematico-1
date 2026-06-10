@@ -1,1 +1,50 @@
-[]
+[
+    {
+        "id_despesa": 1,
+        "id_categoria": 5,
+        "id_usuario": 2,
+        "descricao": "game pass",
+        "valor": "50",
+        "data_inclusao": "2026-06-09T20:05:43.410388"
+    },
+    {
+        "id_despesa": 2,
+        "id_categoria": 1,
+        "id_usuario": 2,
+        "descricao": "conta de água",
+        "valor": "100",
+        "data_inclusao": "2026-06-09T20:08:11.907575"
+    },
+    {
+        "id_despesa": 3,
+        "id_categoria": 7,
+        "id_usuario": 1,
+        "descricao": "uber",
+        "valor": "10",
+        "data_inclusao": "2026-06-09T20:27:52.804821"
+    },
+    {
+        "id_despesa": 4,
+        "id_categoria": 7,
+        "id_usuario": 1,
+        "descricao": "uber",
+        "valor": "10",
+        "data_inclusao": "2026-06-09T20:28:39.822192"
+    },
+    {
+        "id_despesa": 5,
+        "id_categoria": 7,
+        "id_usuario": 1,
+        "descricao": "uber",
+        "valor": "10",
+        "data_inclusao": "2026-06-09T20:52:19.308396"
+    },
+    {
+        "id_despesa": 6,
+        "id_categoria": 3,
+        "id_usuario": 2,
+        "descricao": "uber",
+        "valor": "10",
+        "data_inclusao": "2026-06-09T21:25:05.959630"
+    }
+]
