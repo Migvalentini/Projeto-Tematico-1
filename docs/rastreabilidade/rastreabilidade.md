@@ -1,0 +1,11 @@
+| Requisito | Procedimento | Código | Teste | Resultado |
+| :--- | :--- | :--- | :--- | :--- |
+| Cadastro de usuário | Criação de menu para login e registro com validação em memória/arquivo json. | `menuprincipal.py -> menu_cadastro()` | Inserção de usuário válido e validação de login | OK |
+| Cadastro de rendas mensais | Criação de rotina de input, validação de valores positivos e armazenamento em lista. | `menuRendas.py -> menu_rendas()` | Inserção de renda válida e rejeição de letras/valores negativos | OK |
+| Cadastro de despesas mensais | Criação de fluxo de input vinculando a despesa ao ID do usuário e ID da categoria. | `menuDespesas.py -> menu_logado()` | Salvamento de despesa com campos obrigatórios preenchidos | OK |
+| Categorizar despesas | Implementação de lista de categorias padrão e opção de criar novas pelo terminal. | `menuCategorias.py -> cria_categoria()` | Seleção e filtro de categorias no momento do cadastro da despesa | OK |
+| Exibir valor remanescente | Implementação de cálculo (rendas/despesas) utilizando filtro de datas. | `menuCalculos.py -> menu_logado()` | Operação matemática precisa e exibição automática do saldo | OK |
+| Histórico detalhado de saídas | Criação de menu iterativo listando médias, maiores gastos e total por categoria. | `menuCalculos.py -> menu_logado()` | Exibição de totais por ordem e proporção correta nos agrupamentos | OK |
+| Privacidade e Isolamento de Dados | Filtro nas consultas garantindo que dados exibidos pertencem apenas ao usuário logado. | `gerenciador.py -> getRendas()` | Acesso de um usuário validando a invisibilidade dos dados de terceiros | OK |
+| Usabilidade (menu terminal) | Utilização da biblioteca `questionary` para criar menus interativos e navegação rápida. | `menu.py -> chama_menu()` | Navegação e execução de cadastro em menos de 3 comandos | OK |
+| Persistência de Dados | Conversão de classes (dataclasses) para dicionários e armazenamento em arquivos no formato JSON. | `gerenciador.py -> gravardados()` | Fechar a aplicação e abrir novamente para verificar integridade dos dados | OK |
