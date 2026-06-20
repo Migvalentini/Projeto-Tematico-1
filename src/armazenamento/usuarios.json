@@ -8,5 +8,10 @@
         "id_usuario": 2,
         "nome": "Diego",
         "senha": "123"
+    },
+    {
+        "id_usuario": 3,
+        "nome": "Miguel",
+        "senha": "123"
     }
 ]

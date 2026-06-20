@@ -40,5 +40,41 @@
         "nome": "Transporte",
         "descricao": "gastos com locomoção",
         "id_usuario": 1
+    },
+    {
+        "id_categoria": 8,
+        "nome": "Despesas Fixas",
+        "descricao": "Ocorrem regularmente com valores estáveis, como aluguel, financiamentos, seguros e mensalidades.",
+        "id_usuario": 3
+    },
+    {
+        "id_categoria": 9,
+        "nome": "Despesas Variáveis",
+        "descricao": "Variam mês a mês, como contas de luz, água, gás, alimentação, transporte e entretenimento.",
+        "id_usuario": 3
+    },
+    {
+        "id_categoria": 10,
+        "nome": "Despesas Ocasionais",
+        "descricao": "Não ocorrem mensalmente, mas impactam o orçamento, como viagens, presentes e compra de eletrodomésticos.",
+        "id_usuario": 3
+    },
+    {
+        "id_categoria": 11,
+        "nome": "Despesas Emergenciais",
+        "descricao": "Imprevistas e urgentes, como problemas de saúde, acidentes e reparos emergenciais.",
+        "id_usuario": 3
+    },
+    {
+        "id_categoria": 12,
+        "nome": "Despesas de Lazer",
+        "descricao": "Relacionadas ao bem-estar e entretenimento, como cinema, restaurantes, academias e hobbies.",
+        "id_usuario": 3
+    },
+    {
+        "id_categoria": 13,
+        "nome": "Despesas de Investimento",
+        "descricao": "Aplicações financeiras, compra de imóveis e investimentos em educação e desenvolvimento pessoal.",
+        "id_usuario": 3
     }
 ]

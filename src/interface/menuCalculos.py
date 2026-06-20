@@ -1,6 +1,7 @@
 import questionary
 from questionary import Choice
 from datetime import datetime
+from src.logica.calculos import *
 from src.armazenamento import gerenciador
 from src.utils.utils import perguntar
 
@@ -39,35 +40,23 @@ def menu_logado():
             opcao = chama_menu()
             if opcao == 1: # Saldo restante
                 dataInicial = perguntar(questionary.text( "Insira a data de inicio para a pesquisa (DD/MM/AAAA):", validate=validar_data))
-                dataInicialConvertida = datetime.strptime(dataInicial, "%d/%m/%Y").date()
-
-                despesas = sum(float(despesa.valor) for despesa in gerenciador.getDespesas() if despesa.data_inclusao is not None and despesa.data_inclusao.date() >= dataInicialConvertida)
-                rendas = sum(float(renda.valor) for renda in gerenciador.getRendas() if renda.data_inclusao is not None and renda.data_inclusao.date() >= dataInicialConvertida)
+                
+                rendas, despesas, saldo_restante, porcentagem_restante = SaldoRestante(dataInicial)
+                
                 print('Total de rendas: R$' + str(rendas))
                 print('Total de despesas: R$' + str(despesas))
-
-                saldo_restante = rendas - despesas
-                porcentagem_restante = (saldo_restante / rendas * 100) if rendas != 0 else 0
-
                 print(f"Seu saldo restante é: R${saldo_restante:.2f}")
                 print(f"Porcentagem restante: {porcentagem_restante:.2f}%")
             elif opcao == 2: # Total de despesas
                 dataInicial = perguntar(questionary.text( "Insira a data de inicio para a pesquisa (DD/MM/AAAA):", validate=validar_data))
-                dataInicialConvertida = datetime.strptime(dataInicial, "%d/%m/%Y").date()
                 
-                total_despesas = sum(float(despesa.valor) for despesa in gerenciador.getDespesas() if despesa.data_inclusao is not None and despesa.data_inclusao.date() >= dataInicialConvertida)
+                total_despesas = TotalDeDespesas(dataInicial)
+                
                 print(f"Seu total de despesas é: R${total_despesas:.2f}")
             elif opcao == 3: # Total de despesas por categoria
                 dataInicial = perguntar(questionary.text( "Insira a data de inicio para a pesquisa (DD/MM/AAAA):", validate=validar_data))
-                dataInicialConvertida = datetime.strptime(dataInicial, "%d/%m/%Y").date()
-
-                rendas = sum(float(renda.valor) for renda in gerenciador.getRendas() if renda.data_inclusao is not None and renda.data_inclusao.date() >= dataInicialConvertida)
-                categorias = {}
-                for despesa in gerenciador.getDespesas():             
-                    if despesa.data_inclusao is not None and despesa.data_inclusao.date() >= dataInicialConvertida:
-                        categoria_nome = next((categoria.nome for categoria in gerenciador.getCategorias() if categoria.id_categoria == despesa.id_categoria), "Sem Categoria")
-                        categorias[categoria_nome] = categorias.get(categoria_nome, 0) + float(despesa.valor)
-
+                
+                categorias = TotalDeDespesasPorCategoria(dataInicial)
 
                 if not categorias:
                     print("Nenhuma despesa encontrada a partir da data informada.")
@@ -80,21 +69,21 @@ def menu_logado():
                         print(f"  Porcentagem das despesas da categoria sobre a renda total: {(total / rendas * 100) if rendas != 0 else 0:.2f}%")
             elif opcao == 4: # Total de rendas
                 dataInicial = perguntar(questionary.text( "Insira a data de inicio para a pesquisa (DD/MM/AAAA):", validate=validar_data))
-                dataInicialConvertida = datetime.strptime(dataInicial, "%d/%m/%Y").date()
-
-                total_rendas = sum(float(renda.valor) for renda in gerenciador.getRendas() if renda.data_inclusao is not None and renda.data_inclusao.date() >= dataInicialConvertida)
+                
+                total_rendas = TotalDeRendas(dataInicial)
+                
                 print(f"Seu total de rendas é: R${total_rendas:.2f}")
             elif opcao == 5: # Maior despesa
                 dataInicial = perguntar(questionary.text( "Insira a data de inicio para a pesquisa (DD/MM/AAAA):", validate=validar_data))
-                dataInicialConvertida = datetime.strptime(dataInicial, "%d/%m/%Y").date()
                 
-                maior_despesa = max((float(despesa.valor) for despesa in gerenciador.getDespesas() if despesa.data_inclusao is not None and despesa.data_inclusao.date() >= dataInicialConvertida), default=0)
+                maior_despesa = MaiorDespesa(dataInicial)
+                
                 print(f"Sua maior despesa é: R${maior_despesa:.2f}")
             elif opcao == 6: # Maior renda
                 dataInicial = perguntar(questionary.text( "Insira a data de inicio para a pesquisa (DD/MM/AAAA):", validate=validar_data))
-                dataInicialConvertida = datetime.strptime(dataInicial, "%d/%m/%Y").date()
-
-                maior_renda = max((float(renda.valor) for renda in gerenciador.getRendas() if renda.data_inclusao is not None and renda.data_inclusao.date() >= dataInicialConvertida), default=0)
+                
+                maior_renda = MaiorRenda(dataInicial)
+                
                 print(f"Sua maior renda é: R${maior_renda:.2f}")
             elif opcao == 7: # Impacto de categoria sob renda
                 categoria = perguntar(questionary.select(
@@ -102,19 +91,11 @@ def menu_logado():
                     choices=[Choice(categoria.nome + " - " + categoria.descricao, value=categoria) for categoria in gerenciador.getCategorias()]
                 ))
                 
-                despesas_categoria = sum(float(despesa.valor) for despesa in gerenciador.getDespesas() if despesa.id_categoria == categoria.id_categoria)
-                total_rendas = sum(float(renda.valor) for renda in gerenciador.getRendas())
-
-                porcentagem_impacto = (despesas_categoria / total_rendas * 100) if total_rendas != 0 else 0
+                despesas_categoria, porcentagem_impacto = ImpactoDeCategoriaSobRenda(categoria)
 
                 print(f"O impacto da categoria '{categoria.nome}' sobre a renda total é: R${despesas_categoria:.2f} ({porcentagem_impacto:.2f}%)")
             elif opcao == 8: # Média diária de despesas
-
-                despesas_por_dia = {}
-                for despesa in gerenciador.getDespesas():
-                    if despesa.data_inclusao is not None:
-                        data_str = despesa.data_inclusao.strftime("%d/%m/%Y")
-                        despesas_por_dia[data_str] = despesas_por_dia.get(data_str, 0) + float(despesa.valor)
+                despesas_por_dia = MediaDiariaDeDespesas()
                 
                 print("Média diária de despesas:")
                 for data, total in despesas_por_dia.items():
